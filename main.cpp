@@ -936,7 +936,6 @@ int main (int argc, char **argv)
     glutMouseFunc(myMouseFunc);
     glutMotionFunc(myMotionFunc);
     glutKeyboardFunc(myKeyboardFunc);
-    // Here is our new entry in the main function
 	glutReshapeFunc(resizeView);
     glutMainLoop();
 
