@@ -231,6 +231,19 @@ void base_cylinder_second_building()
     gluCylinder(gluNewQuadric(),.8,.8,11,32,32);
     glPopMatrix();
 
+    //1st pillar in middle
+    glPushMatrix();
+    glTranslatef(18,43,-23);
+    glRotatef(90,1,0,0);
+    gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
+    glPopMatrix();
+
+    //2nd pillar in middle
+    glPushMatrix();
+    glTranslatef(31,43,-23);
+    glRotatef(90,1,0,0);
+    gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
+    glPopMatrix();
 
 
 }
@@ -441,6 +454,16 @@ void it_park_func()
     drawCube();
     glPopMatrix();
 
+    //4th floor back
+    glPushMatrix();
+    glRotatef(-5,0,1,0);
+    glTranslatef(13,33,-79);
+    glScalef(11,.2,6);
+    drawCube();
+    glPopMatrix();
+
+
+
 
 
 //    fifth floor middle
@@ -487,8 +510,8 @@ void it_park_func()
     //3rd floor left
     glPushMatrix();
     glRotatef(-10,0,1,0);
-    glTranslatef(3,23,-78.4);
-    glScalef(5,.2,52);
+    glTranslatef(4,23,-78.4);
+    glScalef(5,.2,64);
     glColor3f(.1f,.9f,.9f);
     drawCube();
     glPopMatrix();
@@ -501,11 +524,37 @@ void it_park_func()
     glPushMatrix();
     glRotatef(1,0,1,0);
     glTranslatef(31,23,-77);
-    glScalef(5,.2,52);
+    glScalef(5,.2,81);
     glColor3f(.9f,.9f,.1f);
     drawCube();
     glPopMatrix();
 
+
+
+
+
+
+    //4th floor left
+    glPushMatrix();
+    glRotatef(-10,0,1,0);
+    glTranslatef(3,33,-78.4);
+    glScalef(5,.2,64);
+    glColor3f(.1f,.9f,.9f);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
+    //4th floor right
+    glPushMatrix();
+    glRotatef(1,0,1,0);
+    glTranslatef(31,33,-77);
+    glScalef(5,.2,81);
+    glColor3f(.9f,.9f,.1f);
+    drawCube();
+    glPopMatrix();
 
 
 
