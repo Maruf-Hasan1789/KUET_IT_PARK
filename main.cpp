@@ -10,6 +10,9 @@ using namespace std;
 double Txval=0,Tyval=0,Tzval=0;
 double windowHeight=900, windowWidth=1200,eyeX=22, eyeY=12, eyeZ=80, refX = 20 , refY=10,refZ=0, objX=0,objY=1,objZ=0,c1=0,c2=0;
 GLfloat alpha = 0.0, theta = 0.0, axis_x=0.0, axis_y=0.0;
+
+//49.172 138.472 -32.2561 49.1693 137.552 -32.6485
+
 GLboolean bRotate = false, uRotate = false;
 double radius = 4;
 double PI=3.14159;
@@ -43,34 +46,104 @@ static GLfloat colors[6][3] =
     {1.0, 0.5, 0.0}
 };
 
-void drawCube(GLfloat c1,GLfloat c2,GLfloat c3)
+
+static GLfloat Cube[8][3] =
 {
-    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_ambient[] = { c1*0.9, c2*0.9, c3*0.9, 1.0 };
-    GLfloat mat_diffuse[] = { c1*0.9, c2*0.9, c3*0.9, 1.0 };
-    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat mat_shininess[] = {70};
+    {0.0, 0.0, 0.0},    //0
+    {1.0, 0.0, 0.0},    //1
+    {1.0, 0.0, 1.0},    //2
+    {0.0, 0.0, 1.0},    //3
+    {0.0, 1.0, 0.0},    //4
+    {1.0, 1.0, 0.0},    //5
+    {1.0, 1.0, 1.0},    //6
+    {0.0, 1.0, 1.0}     //7
+};
+
+static GLubyte Cube_indeces[6][4] =
+{
+  {2,6,7,3},
+  {5,4,7,6},
+  {1,5,6,2},
+  {3,7,4,0},
+  {0,1,2,3},
+  {1,6,4,5}
+
+};
+
+
+
+
+
+
+
+
+static GLfloat v_box[8][3] =
+{
+    {-2.0, 0.0, -2.0},
+    {2.0, 0.0, -2.0},
+    {-2.0, 0.0, 2.0},
+    {2.0, 0.0, 2.0},
+
+    {-2.0, 2.0, -2.0},
+    {2.0, 2.0, -2.0},
+    {-2.0, 2.0, 2.0},
+    {2.0, 2.0, 2.0}
+};
+
+static void getNormal3p
+(GLfloat x1, GLfloat y1,GLfloat z1, GLfloat x2, GLfloat y2,GLfloat z2, GLfloat x3, GLfloat y3,GLfloat z3)
+{
+    GLfloat Ux, Uy, Uz, Vx, Vy, Vz, Nx, Ny, Nz;
+
+    Ux = x2-x1;
+    Uy = y2-y1;
+    Uz = z2-z1;
+
+    Vx = x3-x1;
+    Vy = y3-y1;
+    Vz = z3-z1;
+
+    Nx = Uy*Vz - Uz*Vy;
+    Ny = Uz*Vx - Ux*Vz;
+    Nz = Ux*Vy - Uy*Vx;
+
+    glNormal3f(Nx,Ny,Nz);
+}
+
+void drawCube(GLfloat c1=1,GLfloat c2=1,GLfloat c3=1)
+{
+    glBegin(GL_QUADS);
+
+    GLfloat mat_ambient[] = { 1.0*c1, 1.0*c1, 1.0, 1.0 };
+    GLfloat mat_diffuse[] = { 1.0*c3, 1.0*c2, 1.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0*c2, 1.0, 1.0*c3, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
     glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
 
-    glBegin(GL_QUAD_STRIP);
-    for (GLint i = 0; i <2; i++)
+    for (GLint i = 0; i <6; i++)
     {
-        glVertex3fv(&v_pyramid[quadIndices[i][0]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][1]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][2]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][3]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][4]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][5]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][6]][0]);
-        glVertex3fv(&v_pyramid[quadIndices[i][7]][0]);
+        //LoadTexture("C:\\Users\\USER\\Desktop\\Lab 3 CW\\Lab_3\\Texture\\snail.bmp");
+        //glColor3f(colors[4][0],colors[4][1],colors[4][2]);
+        getNormal3p(Cube[Cube_indeces[i][0]][0], Cube[Cube_indeces[i][0]][1], Cube[Cube_indeces[i][0]][2],
+                    Cube[Cube_indeces[i][1]][0], Cube[Cube_indeces[i][1]][1], Cube[Cube_indeces[i][1]][2],
+                    Cube[Cube_indeces[i][2]][0], Cube[Cube_indeces[i][2]][1], Cube[Cube_indeces[i][2]][2]);
+
+        glVertex3fv(&Cube[Cube_indeces[i][0]][0]);glTexCoord2f(0,1);
+        glVertex3fv(&Cube[Cube_indeces[i][1]][0]);glTexCoord2f(1,1);
+        glVertex3fv(&Cube[Cube_indeces[i][2]][0]);glTexCoord2f(1,0);
+        glVertex3fv(&Cube[Cube_indeces[i][3]][0]);glTexCoord2f(0,0);
+
+
     }
+
     glEnd();
-
-
 }
+
+
 
 
 
@@ -115,168 +188,344 @@ void draw_triangle()
 
 
 
-void draw_fan()
+void base_cylinder_second_building()
 {
-    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_ambient[] = { 0.3, 0.3, 0.3, 1.0 };
-    GLfloat mat_diffuse[] = { 1.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat mat_shininess[] = {40};
 
-    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient);
-    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse);
-    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
-    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
-
-
-
-    glPushMatrix();
-    glTranslatef(0,0,0);
-    glScalef(5, 0.8, 2);
-    draw_triangle();
-    glPopMatrix();
-
-    glPushMatrix();
-    //glTranslatef(0,0,0);
-    glRotatef(-90,0,0,1);
-    glScalef(5, 0.8, 2);
-    draw_triangle();
-    glPopMatrix();
-//
      glPushMatrix();
-    // glTranslatef(24,44,0);
-    glRotatef(180,0,0,1);
-    glScalef(5, 0.8, 2);
-    draw_triangle();
+    double c1=1.0,c2=.7,c3=.9;
+//    GLfloat mat_ambient1[] = { 1.0*c1, 1.0*c1, 1.0, 1.0 };
+//    GLfloat mat_diffuse1[] = { 1.0*c3, 1.0*c2, 1.0, 1.0 };
+//    GLfloat mat_specular1[] = { 1.0*c2, 1.0, 1.0*c3, 1.0 };
+//    GLfloat mat_shininess1[] = {60};
+//
+//    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient1);
+//    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse1);
+//    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular1);
+//    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess1);
+    //front first pillar
+    glColor3f(1,1,1);
+    glTranslatef(40,12,-2);
+    glRotatef(90,1,0,0);
+    gluCylinder(gluNewQuadric(),.8,.8,11,32,32);
     glPopMatrix();
-//
-//
-     glPushMatrix();
 
-     // glTranslatef(6,18,0);
-    glRotatef(90,0,0,1);
-    glScalef(5, 0.8, 2);
-    draw_triangle();
+
+    //front second pillar
+     glPushMatrix();
+    glColor3f(1,1,1);
+    glTranslatef(50,12,-2);
+    glRotatef(90,1,0,0);
+    gluCylinder(gluNewQuadric(),.8,.8,11,32,32);
     glPopMatrix();
 
      glPushMatrix();
-
-    glTranslatef(-2,-2,0);
-    //glRotatef(90,0,0,1);
-    glScalef(2, 2, 1);
-    drawCube(1, 0, 0);
+    glTranslatef(40,12,-10);
+    glRotatef(90,1,0,0);
+    gluCylinder(gluNewQuadric(),.8,.8,11,32,32);
     glPopMatrix();
 
+    //front second pillar
+      glPushMatrix();
+    glTranslatef(50,12,-10);
+    glRotatef(90,1,0,0);
+    gluCylinder(gluNewQuadric(),.8,.8,11,32,32);
+    glPopMatrix();
 
-}
-
-
-void draw_khacha(GLfloat c1, GLfloat c2, GLfloat c3)
-{
-    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_ambient[] = { c1*0.3, c2*0.3, c3*0.4, 0.0 };
-    GLfloat mat_diffuse[] = { c1*.3, c2*.2, c3*.4, 0.0 };
-    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat mat_shininess[] = {70};
-
-    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient);
-    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse);
-    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
-    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
-    glBegin(GL_POINTS);
-    double r = 31;
-    //glColor3f(0,1,0);
-    //printf("afasd ");
-    for(int i=0; i<1000; i++)
-    {
-        //glVertex2f(0,0);
-        glVertex2f(r*cos(2*3.14159*i/1000.0),r*sin(2*3.14159*i/1000.0));
-        r-=0.2;
-        glVertex2f(r*cos(2*3.14159*i/1000.0),r*sin(2*3.14159*i/1000.0));
-        r-=0.2;
-        glVertex2f(r*cos(2*3.14159*i/1000.0),r*sin(2*3.14159*i/1000.0));
-        r+=0.4;
-    }
-    glEnd();
 
 
 }
 
 
 
+void staircases(double tx,double ty,double tz)
+{
+    glPushMatrix();
+    glTranslatef(tx,ty,tz);
+    glScalef(30,3,10);
+    drawCube();
+    glPopMatrix();
 
-
-
-
-
-
+}
 
 
 
 void it_park_func()
 {
+    glEnable(GL_COLOR_MATERIAL);
     //IT PARK1
     glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(1,-.8,-20);
-    glScalef(8,10,16);
-    drawCube(1, 1, 1);
+    glColor3f(.5f, 0.5f, 0.5f);
+    glRotatef(-10,0,1,0);
+    glTranslatef(-12,-.8,-55);
+    glScalef(20,46,60);
+    drawCube();
     glPopMatrix();
 
     //IT PARK2
     glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(16,.5,-20);
-    glScalef(8,10,16);
-    drawCube(1, 1, 1);
+    glColor3f(.4f, 0.5f, 0.3f);
+
+    glTranslatef(35,13,-56);
+    glScalef(25,32,80);
+    drawCube();
     glPopMatrix();
+    base_cylinder_second_building();
+
+    //back left
     glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(23.5,-.6,-10);
-    glScalef(2,.4,5);
-    drawCube(1, 1, 1);
-    glPopMatrix();
-
-    glTranslatef(23.5,-.2,-10);
-    glScalef(1.5,.4,5);
-    drawCube(1, 1, 1);
+    glTranslatef(-3,-1,-71);
+    glScalef(35.8,40,14);
+    drawCube();
     glPopMatrix();
 
 
-      glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(18,5,-24);
-    glScalef(14,2,16);
-    drawCube(1, 1, 1);
+    //back right
+    glPushMatrix();
+    glTranslatef(33,-1,-71);
+    glScalef(22,45,15);
+    glColor3f(.3,.3,.9);
+    drawCube();
     glPopMatrix();
 
 
+    int ty=10,tz=-5;
+    for(int i=0;i<=2;i++)
+    {
+        staircases(6,ty,tz);
+        ty-=2;
+        tz+=3;
+    }
 
-      glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(18,0,0);
-    glScalef(14,1,1);
-    drawCube(1, 1, 1);
+    glPushMatrix();
+    glTranslatef(6,5,10);
+    glScalef(30,2,10);
+    drawCube();
+    glPopMatrix();
+    ty=3;
+    tz=13;
+      for(int i=0;i<=2;i++)
+    {
+        staircases(6,ty,tz);
+        ty-=2;
+        tz+=3;
+    }
+
+    glPushMatrix();
+    glTranslatef(0,0,-1);
+    glRotatef(-1,0,1,0);
+    glPushMatrix();
+    glTranslatef(18,0,-45);
+    glScalef(15,2,2);
+    drawCube();
     glPopMatrix();
 
     glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(18,1,-1);
-    glScalef(14,1,1);
-    drawCube(1, 1, 1);
+    glTranslatef(18,0,-30);
+    glScalef(15,2,2);
+    drawCube();
     glPopMatrix();
 
+
+    glPushMatrix();
+    glTranslatef(18,0,-45);
+    glScalef(2,2,15);
+    drawCube();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(31,0,-44);
+    glScalef(2,2,15);
+    drawCube();
+    glPopMatrix();
+
+//    middle
+    glPushMatrix();
+    glTranslatef(20,0,-43);
+    glColor3f(1,0,0);
+    glScalef(11,.1,13);
+    drawCube();
+    glPopMatrix();
+
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glRotatef(-1,0,1,0);
+    glTranslatef(0,0,20);
+
+    //front
+    glPushMatrix();
+    glColor3f(0,0,1);
+    glTranslatef(18,0,-45);
+    glScalef(15,2,2);
+    drawCube();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(18,0,-30);
+    glScalef(15,2,2);
+    drawCube();
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(18,0,-45);
+    glScalef(2,2,15);
+    drawCube();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(31,0,-44);
+    glScalef(2,2,15);
+    drawCube();
+    glPopMatrix();
+
+//    middle
+    glPushMatrix();
+    glTranslatef(20,0,-43);
+    glColor3f(1,0,0);
+    glScalef(11,.1,13);
+    drawCube();
+    glPopMatrix();
+
+
+    //2nd floor middle
+
+    glPushMatrix();
+     glRotatef(-5,0,1,0);
+    glTranslatef(11,13,-50);
+    glScalef(16,.2,6);
+    drawCube();
+    glPopMatrix();
+
+    //2nd floor back
      glPushMatrix();
-   // glColor3f(.7f, 0.5f, 0.3f);
-    glTranslatef(18,2,-2);
-    glScalef(14,1,1);
-    drawCube(1, 1, 1);
+     glRotatef(-5,0,1,0);
+    glTranslatef(13,13,-79);
+    glScalef(11,.2,6);
+    drawCube();
     glPopMatrix();
+
+
+
+
+
+    //3rd floor middle
+
+
+
+    glPushMatrix();
+    glRotatef(-5,0,1,0);
+    glTranslatef(11,23,-50);
+    glScalef(16,.2,6);
+    glColor3f(.5f,.5f,.01f);
+    drawCube();
+    glPopMatrix();
+
+
+    //3rd floor back
+     glPushMatrix();
+     glRotatef(-5,0,1,0);
+    glTranslatef(13,23,-79);
+    glScalef(11,.2,6);
+    drawCube();
+    glPopMatrix();
+
+
+
+    //4th floor middle
+    glPushMatrix();
+    glTranslatef(12.5,33,-50);
+    glScalef(22,1,6);
+    glColor3f(.5f,.1f,.9f);
+    drawCube();
+    glPopMatrix();
+
+
+
+//    fifth floor middle
+     glPushMatrix();
+    glTranslatef(12.5,43,-50);
+    glScalef(22,1,6);
+    glColor3f(.9f,.1f,1.0f);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
+
+    //2nd floor left
+    glPushMatrix();
+    glRotatef(-10,0,1,0);
+    glTranslatef(3,13,-78.4);
+    glScalef(5,.2,52);
+    glColor3f(.1f,.9f,.9f);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
+    //2nd floor right
+    glPushMatrix();
+    glRotatef(1,0,1,0);
+    glTranslatef(31,13,-77);
+    glScalef(5,.2,52);
+    glColor3f(.9f,.9f,.1f);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
+
+
+    //3rd floor left
+    glPushMatrix();
+    glRotatef(-10,0,1,0);
+    glTranslatef(3,23,-78.4);
+    glScalef(5,.2,52);
+    glColor3f(.1f,.9f,.9f);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
+    //3rd floor right
+    glPushMatrix();
+    glRotatef(1,0,1,0);
+    glTranslatef(31,23,-77);
+    glScalef(5,.2,52);
+    glColor3f(.9f,.9f,.1f);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
+
+
+
+
+
+
+
+    glPopMatrix();
+
 
 
 
 
 }
+
+
 
 
 
@@ -286,36 +535,37 @@ void wall()
     //glColor3f(0.7f, .7f, 0.6f);
 //    glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
     glPushMatrix();
-    glScalef(24, 1, .5);
-    glTranslatef(-0.01,-.4,20);
+    glTranslatef(-10,-.4,20);
+    glScalef(60, 1, 1);
     //glRotatef( 30,0.0, 0.0, 1.0 );
-    drawCube(0.30,0.30,0.3);
+    drawCube();
+   // drawCube(0.30,0.30,0.3);
     glPopMatrix();
 
     // left side_wall
    // glColor3f(0.7f, .7f, 0.6f);
     glPushMatrix();
 
-    glScalef(.5, 1, 27);
-    glTranslatef(-1.5,-.4,-.615);
+    glTranslatef(-10,-.4,-39);
+    glScalef(.5, 1, 60);
     //glRotatef( 30,0.0, 0.0, 1.0 );
        drawCube(0.30,0.30,0.3);
     glPopMatrix();
 
     //right side_wall
-    //glColor3f(0.7f, .7f, 0.6f);
+    glColor3f(0.7f, .7f, 0.6f);
     glPushMatrix();
-    glScalef(.5, 1, 27);
-    glTranslatef(47,-.4,-.61);
+    glTranslatef(51,-.4,-40);
+    glScalef(.5, 2, 50);
     //glRotatef( 30,0.0, 0.0, 1.0 );
      drawCube(0.30,0.30,0.3);
     glPopMatrix();
 
     //floor
-   // glColor3f(.3f, .3f, .3f);
+    glColor3f(.3f, .3f, .3f);
     glPushMatrix();
-    glScalef(30, .1, 35);
-    glTranslatef(-.1,-8.5,-.615);
+    glTranslatef(-15,-1,-50);
+    glScalef(75, .1, 80);
     //glRotatef( 30,0.0, 0.0, 1.0 );
     //drawCube();
     drawCube(0.70,0.40,0.5);
@@ -849,8 +1099,9 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    gluLookAt(eyeX,eyeY,eyeZ,  refX,refY,refZ,  objX,objY,objZ);//camera position target position and rolling of camera
 
+    gluLookAt(eyeX,eyeY,eyeZ,  refX,refY,refZ,  objX,objY,objZ);//camera position target position and rolling of camera
+   // cout<<eyeX<<" "<<eyeY<<" "<<eyeZ<<" "<<refX<<" "<<refY<<" "<<refZ<<endl;
     glViewport(0, 0, windowWidth, windowHeight);
 //    light0();
 //    light1();
@@ -893,7 +1144,6 @@ int main (int argc, char **argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-
 
     glutInitWindowPosition(120,120);
     glutInitWindowSize(1200, 1000);
