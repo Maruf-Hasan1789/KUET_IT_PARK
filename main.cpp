@@ -233,14 +233,14 @@ void base_cylinder_second_building()
 
     //1st pillar in middle
     glPushMatrix();
-    glTranslatef(18,43,-23);
+    glTranslatef(16.5,43,-21);
     glRotatef(90,1,0,0);
     gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
     glPopMatrix();
 
     //2nd pillar in middle
     glPushMatrix();
-    glTranslatef(31,43,-23);
+    glTranslatef(31,43,-21);
     glRotatef(90,1,0,0);
     gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
     glPopMatrix();
@@ -250,14 +250,14 @@ void base_cylinder_second_building()
 
     //1st pillar in front
     glPushMatrix();
-    glTranslatef(13,43,-3);
+    glTranslatef(12.8,43,-5);
     glRotatef(90,1,0,0);
     gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
     glPopMatrix();
 
     //2nd pillar in front
     glPushMatrix();
-    glTranslatef(31,43,-3);
+    glTranslatef(31,43,-5);
     glRotatef(90,1,0,0);
     gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
     glPopMatrix();
@@ -269,7 +269,7 @@ void base_cylinder_second_building()
 
         //1st pillar in back
     glPushMatrix();
-    glTranslatef(21,43,-48);
+    glTranslatef(20,43,-48);
     glRotatef(90,1,0,0);
     gluCylinder(gluNewQuadric(),.5,.5,43,32,32);
     glPopMatrix();
@@ -432,12 +432,12 @@ void it_park_func()
     glPopMatrix();
 
 //    middle
-    glPushMatrix();
-    glTranslatef(20,0,-43);
-    glColor3f(1,0,0);
-    glScalef(11,.1,13);
-    drawCube();
-    glPopMatrix();
+//    glPushMatrix();
+//    glTranslatef(20,0,-43);
+//    glColor3f(1,0,0);
+//    glScalef(11,.1,13);
+//    drawCube();
+//    glPopMatrix();
 
 
     //2nd floor middle
@@ -449,11 +449,41 @@ void it_park_func()
     drawCube();
     glPopMatrix();
 
+    //2nd floor railing middle
+    glPushMatrix();
+    glRotatef(-5,0,1,0);
+    glColor3f(.5,.6,.7);
+    glTranslatef(12,13,-44);
+    glScalef(14.5,3,.1);
+    drawCube();
+    glPopMatrix();
+
+
+
+     //2nd floor railing middle back
+    glPushMatrix();
+    glRotatef(-5,0,1,0);
+    glColor3f(.5,.6,.7);
+    glTranslatef(12,13,-50);
+    glScalef(14,3,.1);
+    drawCube();
+    glPopMatrix();
+
+
     //2nd floor back
      glPushMatrix();
      glRotatef(-5,0,1,0);
     glTranslatef(13,13,-79);
     glScalef(11,.2,6);
+    drawCube();
+    glPopMatrix();
+
+    //2nd floor railing back
+    glPushMatrix();
+    glRotatef(-10,0,1,0);
+    glColor3f(.9,.1,.7);
+    glTranslatef(7.3,13,-74.8);
+    glScalef(10.3,3,.1);
     drawCube();
     glPopMatrix();
 
@@ -474,11 +504,47 @@ void it_park_func()
     glPopMatrix();
 
 
+     //3rd floor railing middle
+    glPushMatrix();
+    glRotatef(-5,0,1,0);
+    glColor3f(.5,.6,.7);
+    glTranslatef(12,23,-44);
+    glScalef(14.5,3,.1);
+    drawCube();
+    glPopMatrix();
+
+
+
+     //3rd floor railing middle back
+    glPushMatrix();
+    glRotatef(-5,0,1,0);
+    glColor3f(.5,.6,.7);
+    glTranslatef(12,23,-50);
+    glScalef(14,3,.1);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+
     //3rd floor back
      glPushMatrix();
      glRotatef(-5,0,1,0);
     glTranslatef(13,23,-79);
     glScalef(11,.2,6);
+    drawCube();
+    glPopMatrix();
+
+
+
+
+     //3rd floor railing  back
+    glPushMatrix();
+    glRotatef(-10,0,1,0);
+    glColor3f(.9,.1,.7);
+    glTranslatef(8,23,-74.8);
+    glScalef(9.5,3,.1);
     drawCube();
     glPopMatrix();
 
@@ -492,6 +558,30 @@ void it_park_func()
     drawCube();
     glPopMatrix();
 
+
+    //4th floor railing middle
+      glPushMatrix();
+//    glRotatef(-5,0,1,0);
+    glColor3f(.5,.6,.7);
+    glTranslatef(15.5,33,-44);
+    glScalef(15,3,.1);
+    drawCube();
+    glPopMatrix();
+
+
+
+     //4th floor railing middle back
+    glPushMatrix();
+//    glRotatef(-5,0,1,0);
+    glColor3f(.5,.6,.7);
+    glTranslatef(16.5,33,-50);
+    glScalef(14,3,.1);
+    drawCube();
+    glPopMatrix();
+
+
+
+
     //4th floor back
     glPushMatrix();
     glRotatef(-5,0,1,0);
@@ -500,11 +590,19 @@ void it_park_func()
     drawCube();
     glPopMatrix();
 
+  //4th floor railing  back
+    glPushMatrix();
+    glRotatef(-10,0,1,0);
+    glColor3f(.9,.1,.7);
+    glTranslatef(7,33,-74.8);
+    glScalef(10.5,3,.1);
+    drawCube();
+    glPopMatrix();
 
 
 
 
-//    fifth floor middle
+        //fifth floor middle
      glPushMatrix();
     glTranslatef(12.5,43,-50);
     glScalef(22,1,6);
