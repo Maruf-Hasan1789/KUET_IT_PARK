@@ -333,7 +333,7 @@ void it_park_func()
     //back right
     glPushMatrix();
     glTranslatef(33,-1,-71);
-    glScalef(22,45,15);
+    glScalef(26,46,15);
     glColor3f(.3,.3,.9);
     drawCube();
     glPopMatrix();
@@ -364,36 +364,42 @@ void it_park_func()
     glPushMatrix();
     glTranslatef(0,0,-1);
     glRotatef(-1,0,1,0);
+
+
+    //back design front
     glPushMatrix();
-    glTranslatef(18,0,-45);
-    glScalef(15,2,2);
+    glTranslatef(20,0,-45);
+    glScalef(8.5,2,.5);
+    drawCube();
+    glPopMatrix();
+//
+    //back design back
+    glPushMatrix();
+    glTranslatef(20,0,-30);
+    glScalef(8.5,2,.5);
     drawCube();
     glPopMatrix();
 
+    //back design left
     glPushMatrix();
-    glTranslatef(18,0,-30);
-    glScalef(15,2,2);
+    glTranslatef(20,0,-45);
+    glScalef(.5,2,15);
     drawCube();
     glPopMatrix();
 
 
+    //back design right
     glPushMatrix();
-    glTranslatef(18,0,-45);
-    glScalef(2,2,15);
+    glTranslatef(28,0,-45);
+    glScalef(.5,2,15);
     drawCube();
     glPopMatrix();
 
+//    back design middle
     glPushMatrix();
-    glTranslatef(31,0,-44);
-    glScalef(2,2,15);
-    drawCube();
-    glPopMatrix();
-
-//    middle
-    glPushMatrix();
-    glTranslatef(20,0,-43);
+    glTranslatef(20,0,-45);
     glColor3f(1,0,0);
-    glScalef(11,.1,13);
+    glScalef(8,.1,15);
     drawCube();
     glPopMatrix();
 
@@ -404,30 +410,34 @@ void it_park_func()
     glRotatef(-1,0,1,0);
     glTranslatef(0,0,20);
 
+    //front design
     //front
     glPushMatrix();
     glColor3f(0,0,1);
     glTranslatef(18,0,-45);
-    glScalef(15,2,2);
+    glScalef(10,2,.5);
     drawCube();
     glPopMatrix();
 
+    //back
     glPushMatrix();
     glTranslatef(18,0,-30);
-    glScalef(15,2,2);
+    glScalef(10.5,2,.5);
     drawCube();
     glPopMatrix();
 
-
+    //left
     glPushMatrix();
     glTranslatef(18,0,-45);
-    glScalef(2,2,15);
+    glScalef(.5,2,15);
     drawCube();
     glPopMatrix();
 
+
+    //right
     glPushMatrix();
-    glTranslatef(31,0,-44);
-    glScalef(2,2,15);
+    glTranslatef(28,0,-45);
+    glScalef(.5,2,15);
     drawCube();
     glPopMatrix();
 
@@ -604,12 +614,20 @@ void it_park_func()
 
         //fifth floor middle
      glPushMatrix();
-    glTranslatef(12.5,43,-50);
-    glScalef(22,1,6);
+    glTranslatef(10,43,-50);
+    glScalef(25,1,10);
     glColor3f(.9f,.1f,1.0f);
     drawCube();
     glPopMatrix();
 
+
+    //fifth floor front
+    glPushMatrix();
+    glTranslatef(16,43,-75);
+    glScalef(17,1,8);
+    glColor3f(.9f,.1f,1.0f);
+    drawCube();
+    glPopMatrix();
 
 
 
@@ -767,8 +785,8 @@ void wall()
     //glColor3f(0.7f, .7f, 0.6f);
 //    glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
     glPushMatrix();
-    glTranslatef(-10,-.4,20);
-    glScalef(60, 1, 1);
+    glTranslatef(-20,-.4,50);
+    glScalef(70, 1, 1);
     //glRotatef( 30,0.0, 0.0, 1.0 );
     drawCube();
    // drawCube(0.30,0.30,0.3);
@@ -778,8 +796,8 @@ void wall()
    // glColor3f(0.7f, .7f, 0.6f);
     glPushMatrix();
 
-    glTranslatef(-10,-.4,-39);
-    glScalef(.5, 1, 60);
+    glTranslatef(-20,-.4,-70);
+    glScalef(.5, 1, 120);
     //glRotatef( 30,0.0, 0.0, 1.0 );
        drawCube(0.30,0.30,0.3);
     glPopMatrix();
@@ -787,8 +805,8 @@ void wall()
     //right side_wall
     glColor3f(0.7f, .7f, 0.6f);
     glPushMatrix();
-    glTranslatef(51,-.4,-40);
-    glScalef(.5, 2, 50);
+    glTranslatef(51,-.4,-60);
+    glScalef(.5, 2, 80);
     //glRotatef( 30,0.0, 0.0, 1.0 );
      drawCube(0.30,0.30,0.3);
     glPopMatrix();
@@ -796,13 +814,61 @@ void wall()
     //floor
     glColor3f(.3f, .3f, .3f);
     glPushMatrix();
-    glTranslatef(-15,-1,-50);
-    glScalef(75, .1, 80);
+    glTranslatef(-30,-1,-60);
+    glScalef(90, .1, 120);
     //glRotatef( 30,0.0, 0.0, 1.0 );
     //drawCube();
     drawCube(0.70,0.40,0.5);
     glPopMatrix();
+
+
+    //floor in right it building
+    glColor3f(.7f, .7f, .3f);
+    glPushMatrix();
+    glTranslatef(34,-1,-60);
+    glScalef(17, 3, 78);
+    //glRotatef( 30,0.0, 0.0, 1.0 );
+    //drawCube();
+    drawCube(0.70,0.40,0.5);
+    glPopMatrix();
+
+
+    //staircase
+
+    glColor3f(.1f, .7f, .9f);
+    glPushMatrix();
+    glTranslatef(51,-1,-8);
+    glScalef(3, 1, 5);
+    //glRotatef( 30,0.0, 0.0, 1.0 );
+    //drawCube();
+    drawCube(0.70,0.40,0.5);
+    glPopMatrix();
+
+    //staircase
+    glColor3f(.9f, 1.7f, .9f);
+    glPushMatrix();
+    glTranslatef(51,0,-8);
+    glScalef(2, 1, 5);
+    //glRotatef( 30,0.0, 0.0, 1.0 );
+    //drawCube();
+    drawCube(0.70,0.40,0.5);
+    glPopMatrix();
+
+    //staircase left side
+     glColor3f(.0f, 0.0f, .9f);
+    glPushMatrix();
+    glTranslatef(6,-1,5);
+    glScalef(.1, 8, 15);
+    drawCube(0.70,0.40,0.5);
+    glPopMatrix();
+
+
+
+
 }
+
+
+
 
 
 
