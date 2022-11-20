@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1668597605 source:c:\users\user\desktop\graphics_project\kuet_it_park\main.cpp
+1668956743 source:c:\users\user\desktop\graphics_project\kuet_it_park\main.cpp
 	<GL/gl.h>
 	<GL/glu.h>
 	<GL/glut.h>
@@ -8,6 +8,7 @@
 	<windows.h>
 	<math.h>
 	<iostream>
+	"BmpLoader.h"
 
 1632060799 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glut.h
 	"freeglut_std.h"
@@ -912,4 +913,12 @@
 	<math.h>
 	<bits/stdc++.h>
 	<string>
+
+1620568408 c:\users\user\desktop\graphics_project\kuet_it_park\bmploader.h
+	<windows.h>
+
+1620567554 source:c:\users\user\desktop\graphics_project\kuet_it_park\bmploader.cpp
+	"BmpLoader.h"
+	<stdio.h>
+	<iostream>
 
